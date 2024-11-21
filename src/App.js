@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import TemperatureInputC from './TemperatureInputC';
+import BoilingVerdict from './BoilingVerdict';
+import TemperatureInputF from './TemperatureInputF.js';
 
 function App() {
+  const [temp, setTemp]=useState(0);
+  function changeTemp(data){
+    setTemp(data)
+  }
+
+  function changeTempF(data){
+    setTemp((data-32)*0.55555)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+     <TemperatureInputC functionToCall={changeTemp}/>
+     <TemperatureInputF functionToCall={changeTempF}/>
+
+     <BoilingVerdict text={temp > 100? "Water would boil" :
+       "Water would not boil"} />
     </div>
   );
 }
